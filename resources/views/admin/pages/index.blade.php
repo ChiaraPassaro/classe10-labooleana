@@ -1,36 +1,36 @@
 @php
-$pages = [
-  [
-    'id' => 1,
-    'title' => 'lorem ipsum dolor sit',
-    'category' => 1,
-    'tags' => [
-      1,
-      3,
-      5
-    ],
-  ],
-  [
-    'id' => 2,
-    'title' => 'Titolo lorem ipsum dolor sit',
-    'category' => 1,
-    'tags' => [
-      4,
-      6,
-      8
-    ],
-  ],
-  [
-    'id' => 3,
-    'title' => 'Tre lorem ipsum dolor sit',
-    'category' => 2,
-    'tags' => [
-      1,
-      3,
-      5
-    ],
-  ],
-];   
+// $pages = [
+//   [
+//     'id' => 1,
+//     'title' => 'lorem ipsum dolor sit',
+//     'category' => 1,
+//     'tags' => [
+//       1,
+//       3,
+//       5
+//     ],
+//   ],
+//   [
+//     'id' => 2,
+//     'title' => 'Titolo lorem ipsum dolor sit',
+//     'category' => 1,
+//     'tags' => [
+//       4,
+//       6,
+//       8
+//     ],
+//   ],
+//   [
+//     'id' => 3,
+//     'title' => 'Tre lorem ipsum dolor sit',
+//     'category' => 2,
+//     'tags' => [
+//       1,
+//       3,
+//       5
+//     ],
+//   ],
+// ];   
 @endphp
 @extends('layouts.app')
 @section('content')
@@ -70,19 +70,25 @@ $pages = [
                 <tr>
                   <td>{{$page['id']}}</td>
                   <td>{{$page['title']}}</td>
-                  <td>{{$page['category']}}</td>
+                  <td>{{$page->category->name}}</td>
                   <td>
                     @foreach ($page['tags'] as $tag)
-                      {{$tag}} 
+                      {{$tag->name}} 
                       @if (!$loop->last)
                           ,
                       @endif
                     @endforeach
                   </td>
-                  <td><a class="btn btn-primary" href="">Visualizza</a> </td>
-                  <td><a class="btn btn-info" href="">Modifica</a></td>
+                <td><a class="btn btn-primary" href="{{route('admin.pages.show', $page['id'])}}">Visualizza</a> </td>
+                <td>
+                  @if(Auth::id() == $page['user_id'])
+                  <a class="btn btn-info" href="{{route('admin.pages.edit', $page->id)}}">Modifica</a>
+                  @endif
+                </td>
                   <td>
-                    <form action="">
+                  <form action="{{route('admin.pages.destroy', $page['id'])}}" method="POST">
+                      @csrf
+                      @method('DELETE')
                       <input class="btn btn-danger" type="submit" value="Elimina">
                     </form>
                   </td>
@@ -91,6 +97,7 @@ $pages = [
            
             </tbody>
           </table>
+          {{$pages->links()}}
         </div>
       </div>
     </div>

@@ -1,75 +1,75 @@
 @php 
-$categories =  [
-              [
-                'id' => 1,
-                'name' =>'Miscellanea'
-              ],
-              [
-                'id' => 2,
-                'name' =>'Lorem'
-              ],
-              [
-                'id' => 3,
-                'name' =>'Ipsum'
-              ],
-              [
-                'id' => 4,
-                'name' =>'Dolor'
-              ],
-              [
-                'id' => 5,
-                'name' =>'Sit'
-              ]
-];
+// $categories =  [
+//               [
+//                 'id' => 1,
+//                 'name' =>'Miscellanea'
+//               ],
+//               [
+//                 'id' => 2,
+//                 'name' =>'Lorem'
+//               ],
+//               [
+//                 'id' => 3,
+//                 'name' =>'Ipsum'
+//               ],
+//               [
+//                 'id' => 4,
+//                 'name' =>'Dolor'
+//               ],
+//               [
+//                 'id' => 5,
+//                 'name' =>'Sit'
+//               ]
+// ];
 
- $tags = [
-          [
-            'id' => 1,
-            'name' => 'Tag 1'
-          ],
-          [
-            'id' => 2,
-            'name' => 'Tag 2'
-          ],
-          [
-            'id' => 3,
-            'name' => 'Tag 3'
-          ],
-          [
-            'id' => 4,
-            'name' => 'Tag 4'
-          ],
-          [
-            'id' => 5,
-            'name' => 'Tag 5'
-          ],
-          [
-            'id' => 6,
-            'name' => 'Tag 6'
-          ],
-          [
-            'id' => 7,
-            'name' => 'Tag 7'
-          ],
-];
+//  $tags = [
+//           [
+//             'id' => 1,
+//             'name' => 'Tag 1'
+//           ],
+//           [
+//             'id' => 2,
+//             'name' => 'Tag 2'
+//           ],
+//           [
+//             'id' => 3,
+//             'name' => 'Tag 3'
+//           ],
+//           [
+//             'id' => 4,
+//             'name' => 'Tag 4'
+//           ],
+//           [
+//             'id' => 5,
+//             'name' => 'Tag 5'
+//           ],
+//           [
+//             'id' => 6,
+//             'name' => 'Tag 6'
+//           ],
+//           [
+//             'id' => 7,
+//             'name' => 'Tag 7'
+//           ],
+// ];
 
-$photos = [
-  [
-    'id' => 1,
-    'title' => 'Lorem ipsum',
-    'path' => 'images/nomefoto.jpg'
-  ],
-    [
-      'id' => 2,
-      'title' => 'Due Lorem ipsum',
-      'path' => 'images/nomefoto.jpg'
-  ],
-    [
-      'id' => 3,
-      'title' => 'Tre Lorem ipsum',
-      'path' => 'images/nomefoto.jpg'
-  ],
-]
+// $photos = [
+//   [
+//     'id' => 1,
+//     'title' => 'Lorem ipsum',
+//     'path' => 'images/nomefoto.jpg'
+//   ],
+//     [
+//       'id' => 2,
+//       'title' => 'Due Lorem ipsum',
+//       'path' => 'images/nomefoto.jpg'
+//   ],
+//     [
+//       'id' => 3,
+//       'title' => 'Tre Lorem ipsum',
+//       'path' => 'images/nomefoto.jpg'
+//   ],
+// ]
 @endphp
 
 @extends('layouts.app')
@@ -95,26 +95,33 @@ $photos = [
           </div>
           <div class="row">
             <div class="col-12">
-              <form action="" method="POST">
+            <form action="{{route('admin.pages.store')}}" method="POST">
                 @csrf
                 @method('POST')
                 <div class="form-group">
+                  <!-- Default switch -->
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitches" name="visible">
+                      <label class="custom-control-label" for="customSwitches">Visible</label>
+                    </div>
+                </div>
+                <div class="form-group">
                   <label for="title">Title</label>
-                  <input type="text" class="form-control" id="title"  placeholder="Inserisci un titolo">
+                  <input type="text" class="form-control" id="title"  placeholder="Inserisci un titolo" name="title">
                   @error('title')
                     <small class="form-text">Errore</small>
                   @enderror
                 </div>
                 <div class="form-group">
                   <label for="summary">Summary</label>
-                  <input type="text" class="form-control" id="summary"  placeholder="Inserisci il sommario">
+                  <input type="text" class="form-control" id="summary"  placeholder="Inserisci il sommario" name="summary">
                   @error('summary')
                     <small class="form-text">Errore</small>
                   @enderror
                 </div>
                 <div class="form-group">
                   <label for="category">Category</label>
-                  <select name="category" id="category" class="custom-select">
+                  <select name="category_id" id="category" class="custom-select">
                     @foreach ($categories as $category)
                       <option value="{{$category['id']}}">{{$category['name']}}</option>
                     @endforeach
