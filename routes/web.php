@@ -13,14 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+--------------------------------------------------------------------------
+    rotta base di laravel
+--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+--------------------------------------------------------------------------
+    rotte autenticazione
+--------------------------------------------------------------------------
+*/ 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
+/*
+--------------------------------------------------------------------------
+    rotte che portano a views con dati fake
+--------------------------------------------------------------------------
+*/
 Route::get('/pages', function () {
     return view('admin.pages.index');
 })->name('admin.pages.index');
@@ -32,3 +46,5 @@ Route::get('/pages/create', function () {
 Route::get('/pages/{page}/edit', function () {
     return view('admin.pages.edit');
 })->name('admin.pages.edit');
+
+
